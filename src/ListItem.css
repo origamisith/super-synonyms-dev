@@ -5,6 +5,7 @@
     border-style: solid;
     margin: 1em 0.5em 1em 0.5em;
     padding: 0.8em;
+    margin-outside: 1em;
 }
 
 .Header {

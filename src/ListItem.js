@@ -1,7 +1,7 @@
 import './ListItem.css';
 import {Component} from "react";
 import apiKey from './apiKey';
-import {Container, Col, Form, Button, Row } from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 import Loader from "react-spinners/PacmanLoader"
 
 class ListItem extends Component {
