@@ -40,3 +40,5 @@ lerna-debug.log
 /.changelog
 .npm/
 dist
+
+*.iml

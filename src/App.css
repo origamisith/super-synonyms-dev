@@ -1,10 +1,41 @@
 * {
-  text-align: center;
+  /*text-align: center;*/
 }
 
 .nav {
-  text-align: center;
   background-color: darkslategray;
   color: white;
-  font-size: xxx-large;
+  font-size: xx-large;
+  text-align: left;
+  /*margin-inside: 50px;*/
+  padding: 0.3em 0.3em 0.5em 1.0em;
+}
+
+.Form {
+  text-align: center;
+
+}
+
+.firstrow {
+  margin-bottom: 2em;
+}
+
+.secondrow {
+  width: 100px;
+  justify-content: center;
+  margin-bottom: 2em;
+}
+
+.results {
+  padding: 2em
+}
+
+.slider {
+  text-align: center;
+  align-content: center;
+}
+
+.sliderTitle {
+  text-align: center;
+  padding-left: 7em;
 }

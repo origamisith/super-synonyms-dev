@@ -1,38 +1,54 @@
 // import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button } from 'react-bootstrap';
+import {Container, Col, Form, Button, Row } from 'react-bootstrap';
 import {Component} from "react";
 import apiKey from './apiKey';
 import ListItem from "./ListItem";
+import Loader from "react-spinners/PacmanLoader"
+import RangeSlider from 'react-bootstrap-range-slider'
+import { css } from "@emotion/core"
+// const override = css`
+//     display: block
+//     margin: 0 auto;
+//     border-color: red;
+// `;
 
 class App extends Component {
     state = {
-        word: ''
+        word: '',
+        loading: false,
+        maxChars: 15,
     };
 
     handleSubmitWord = (e) => {
-        e.preventDefault();
+        this.setState({loading: true }, () => {
+            e.preventDefault();
 
-        console.log(e.target.value);
-        if(!this.state.word) return;
+            if (!this.state.word) return;
 
-        // read all entities
-        fetch("https://wordsapiv1.p.rapidapi.com/words/"+ this.state.word + "/synonyms", {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-key": apiKey.key,
-                "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-            }
-        })
-            .then(response => response.json())
-            .then(response => {
-                this.setState({failed: !response.synonyms})
-                this.setState({synonyms: response.synonyms ? Array.from(response.synonyms) : ''})
-                // console.log(response + ", " + response.synonyms);
+            // read all entities
+            fetch("https://wordsapiv1.p.rapidapi.com/words/" + this.state.word + "/synonyms", {
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-key": apiKey.key,
+                    "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
+                }
             })
-            .catch(err => { console.log(err)
-            });
+                .then(response => response.json())
+                .then(response => {
+                    this.setState({
+                        failed: !response.synonyms,
+                        synonyms: response.synonyms ? Array.from(response.synonyms) : '',
+                        loading: false,
+                        results: response.synonyms.length
+                    });
+                    console.log(response);
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+        });
     }
 
     handleWordChange = (e) => {
@@ -43,18 +59,49 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <div className = "nav">
-                    <h1>Superb Synonyms</h1>
-                </div>
-                <Form onSubmit={this.handleSubmitWord}>
-                    <Form.Label>
-                        Word:
-                        <Form.Control variant="primary" type="text" name="word" onChange = {this.handleWordChange}/>
-                    </Form.Label>
-                    <Button variant = "primary" type="submit" value="Submit" />
-                </Form>
-                {this.state.synonyms? this.state.synonyms.map((synonym) => <ListItem word = {synonym}/>) : ''}
-                {this.state.failed === true ? <h1>k No synonyms found</h1> : ''}
+                <Container className="firstrow" fluid >
+                    <Row className = "nav">
+                        <Col className="navbar-text"> Super Synonyms</Col>
+                    </Row>
+                </Container>
+
+                <Container className = "secondrow">
+                    <form onSubmit={this.handleSubmitWord}>
+                        <Form class="justify-content-center" as={Row} className = "Form" onSubmit={this.handleSubmitWord}>
+                            <Col xs={6} className = "enter">
+                                <Form.Control placeholder="Enter a word" variant="primary" type="text" name="word" onChange = {this.handleWordChange}/>
+                            </Col>
+                            <Col xs={1} class="text-left">
+                                <Button variant = "primary" type="submit" ><i className="fa fa-search" aria-hidden="true"/>
+                                </Button>
+                            </Col>
+                            <Col lg={5} className = "slider">
+                                <Row className = "sliderTitle">
+                                Maximum Word Length
+                                </Row>
+                                <Row>
+                                <RangeSlider value = {this.state.maxChars} tooltip='on' min = '2' max = '20'
+                                             onChange = {e => this.setState(
+                                                 {maxChars: e.target.value,
+                                                     results: this.state.synonyms.filter(word => word.length <= e.target.value).length}
+                                             )}/>
+                                </Row>
+                            </Col>
+                        </Form>
+                    </form>
+                    <Row className="results">
+                        {this.state.results? "Showing " + this.state.results + " results": ""}
+                    </Row>
+                </Container>
+                <Container>
+                    <Row>
+                        <Loader loading = {this.state.loading}/>
+                        {this.state.synonyms? this.state.synonyms
+                            .filter(word => word.length <= this.state.maxChars)
+                            .map((synonym) => <ListItem key = {synonym} word = {synonym}/>) : ''}
+                        {this.state.failed === true ? <h1>No synonyms found</h1> : ''}
+                    </Row>
+                </Container>
             </div>
         );
     }

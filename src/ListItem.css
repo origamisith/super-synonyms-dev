@@ -1,0 +1,12 @@
+.Item {
+    border-width: 0.2em;
+    border-radius: 1em;
+    border-color: #000000;
+    border-style: solid;
+    margin: 1em;
+    padding: 1.5em;
+}
+
+.Header {
+    padding-bottom: 0.5em;
+}
