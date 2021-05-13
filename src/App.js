@@ -14,6 +14,7 @@ import { css } from "@emotion/core"
 //     border-color: red;
 // `;
 
+document.body.style = 'background: #d7ffd9'
 class App extends Component {
     state = {
         word: '',
@@ -68,24 +69,22 @@ class App extends Component {
                 <Container className = "secondrow">
                     <form onSubmit={this.handleSubmitWord}>
                         <Form class="justify-content-center" as={Row} className = "Form" onSubmit={this.handleSubmitWord}>
-                            <Col xs={6} className = "enter">
+                            <Col sm = {12} lg={5} className = "enter">
                                 <Form.Control placeholder="Enter a word" variant="primary" type="text" name="word" onChange = {this.handleWordChange}/>
                             </Col>
-                            <Col xs={1} class="text-left">
-                                <Button variant = "primary" type="submit" ><i className="fa fa-search" aria-hidden="true"/>
+                            <Col sm = {12} lg={1}  className = "search">
+                                <Button block variant = "primary" type="submit" ><i className="fa fa-search" aria-hidden="true"/>
                                 </Button>
                             </Col>
-                            <Col lg={5} className = "slider">
-                                <Row className = "sliderTitle">
+                            <Col lg={3} className = "sliderTitle">
                                 Maximum Word Length
-                                </Row>
-                                <Row>
+                            </Col>
+                            <Col md={3} className = "slider">
                                 <RangeSlider value = {this.state.maxChars} tooltip='on' min = '2' max = '20'
                                              onChange = {e => this.setState(
                                                  {maxChars: e.target.value,
                                                      results: this.state.synonyms.filter(word => word.length <= e.target.value).length}
                                              )}/>
-                                </Row>
                             </Col>
                         </Form>
                     </form>

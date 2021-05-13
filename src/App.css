@@ -1,6 +1,3 @@
-* {
-  /*text-align: center;*/
-}
 
 .nav {
   background-color: darkslategray;
@@ -36,6 +33,6 @@
 }
 
 .sliderTitle {
-  text-align: center;
-  padding-left: 7em;
+  text-align: left;
 }
+

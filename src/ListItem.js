@@ -45,7 +45,7 @@ class ListItem extends Component {
                 <Container className = "Item">
                     <h2 className="Header">{this.props.word}</h2>
                     <Loader loading = {this.state.loading}/>
-                    {this.state.definitions? this.state.definitions.map(word => <h4>{word.partOfSpeech}: {word.definition}</h4>) : ''}
+                    {this.state.definitions? this.state.definitions.map(word => <h5>{word.partOfSpeech}: {word.definition}</h5>) : ''}
                 </Container>
             </div>
         );

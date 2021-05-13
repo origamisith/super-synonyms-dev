@@ -3,8 +3,8 @@
     border-radius: 1em;
     border-color: #000000;
     border-style: solid;
-    margin: 1em;
-    padding: 1.5em;
+    margin: 1em 0.5em 1em 0.5em;
+    padding: 0.8em;
 }
 
 .Header {
