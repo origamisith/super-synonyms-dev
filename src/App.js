@@ -37,7 +37,7 @@ class App extends Component {
                 .then(response => {
                     this.setState({
                         loading: false,
-                        failed: !response.synonyms,
+                        failed: !response.synonyms || response.synonyms.length === 0,
                         synonyms: response.synonyms ? Array.from(response.synonyms) : '',
                         results: response.synonyms? response.synonyms.length : ''
                     });
@@ -65,7 +65,7 @@ class App extends Component {
 
                 <Container className = "secondrow">
                     <form onSubmit={this.handleSubmitWord}>
-                        <Form class="justify-content-center" as={Row} className = "Form" onSubmit={this.handleSubmitWord}>
+                        <Form class="justify-content-center" as={Row} className = "Form">
                             <Col sm = {12} lg={5} className = "enter">
                                 <Form.Control placeholder="Enter a word" variant="primary" type="text" name="word" onChange = {this.handleWordChange}/>
                             </Col>
@@ -80,7 +80,8 @@ class App extends Component {
                                 <RangeSlider value = {this.state.maxChars} tooltip='on' min = '2' max = '30'
                                              onChange = {e => this.setState(
                                                  {maxChars: e.target.value,
-                                                     results: this.state.synonyms.filter(word => word.length <= e.target.value).length}
+                                                     results: this.state.synonyms? this.state.synonyms.filter(word => word.length <= e.target.value).length : ''}
+
                                              )}/>
                             </Col>
                         </Form>
