@@ -1,0 +1,8 @@
+{
+  "short_name": "Computing For All Challenge",
+  "name": "Find synonyms and their definitions!",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
