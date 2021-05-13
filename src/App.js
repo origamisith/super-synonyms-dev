@@ -66,18 +66,18 @@ class App extends Component {
                 <Container className = "secondrow">
                     <form onSubmit={this.handleSubmitWord}>
                         <Form class="justify-content-center" as={Row} className = "Form">
-                            <Col sm = {12} lg={5} className = "enter">
+                            <Col sm = {9} lg={5} className = "enter">
                                 <Form.Control placeholder="Enter a word" variant="primary" type="text" name="word" onChange = {this.handleWordChange}/>
                             </Col>
-                            <Col sm = {12} lg={1}  className = "search">
+                            <Col sm = {3} lg={1}  className = "search">
                                 <Button block variant = "primary" type="submit" ><i className="fa fa-search" aria-hidden="true"/>
                                 </Button>
                             </Col>
-                            <Col lg={3} className = "sliderTitle">
+                            <Col md= {12} lg={3} className = "sliderTitle">
                                 Maximum Word Length
                             </Col>
-                            <Col md={3} className = "slider">
-                                <RangeSlider value = {this.state.maxChars} tooltip='on' min = '2' max = '30'
+                            <Col md = {12} lg={3}>
+                                <RangeSlider className = "slider" value = {this.state.maxChars} tooltip='on' min = '2' max = '30' size = 'lg'
                                              onChange = {e => this.setState(
                                                  {maxChars: e.target.value,
                                                      results: this.state.synonyms? this.state.synonyms.filter(word => word.length <= e.target.value).length : ''}
